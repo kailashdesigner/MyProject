@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>greetingCard</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <style>
+    body{
+        margin: 0px;
+        font-family: 'Roboto', sans-serif;
+    }
+    form.greedingCard {
+    max-width: 600px;
+    margin: auto;
+  
+    width: 600px;
+   
+    padding: 30px 30px;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.1);
+    margin-top: 30px;
+    border-radius: 4px;
+}
+.form.greedingCard .row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: -ms-flexbox;
+}
+
+form.greedingCard .row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+form.greedingCard .row .col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+form.greedingCard .row .col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+form.greedingCard .row .col-6,form.greedingCard .row .col-12 {padding-left: 15px;padding-right: 15px;box-sizing: border-box;}
+
+form.greedingCard input {
+    border: 1px solid #ddd;
+    height: 35px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+form.greedingCard label {
+    margin-bottom: 10px;
+    display: block;
+    color: #262626;
+}
+.btn-submit {
+    background-color: hsl(254, 77%, 69%);
+    padding: 10px 40px;
+    border: 1px solid hsl(254, 77%, 69%);
+    color: hsl(0, 0%, 100%);
+    font-size: 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-submit:hover {
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.2);
+    background-color: hsl(254, 66%, 59%);
+}
+div#greedingCardMessage {
+    margin-top: 20px;
+    line-height: 25px;
+    font-weight: 500;
+    color: hsl(0, 0%, 15%);
+}
+    </style>
+</head>
+<body>
+    
+    <form class="greedingCard">
+        <div class="row">
+            <div class="col-6">
+                    <label for="">First Name</label>
+                    <input type="text" class="form-control" id="Fname" placeholder="Enter First Name">
+            </div>
+            <div class="col-6">
+                    <label for="">Last Name</label>
+                    <input type="text" class="form-control" id="Lname" placeholder="Enter Last Name">
+            </div>
+            <div class="col-6">
+                    <label for="">DOB</label>
+                    <input type="date" class="form-control" id="DOB">
+            </div>
+            <div class="col-12">
+                    <button type="button" class="btn btn-submit" onclick="ShowDetail()">Submit</button>
+            </div>
+        </div>
+        <div id="greedingCardMessage">
+
+        </div>
+    </form>
+
+    <script>
+        //my code begin here
+        function ShowDetail(){
+            var Fname = document.getElementById('Fname').value;
+            var Lname = document.getElementById('Lname').value;
+            var FinalName = Fname + ' ' + Lname;
+            var Time =new Date().getHours();
+            if(Time > 0 && Time < 6){
+                var daytime = 'Good Night';
+            }
+            else if(Time > 6 && Time < 12){
+                var daytime = 'Good Morning';
+            }
+            else if(Time > 12 && Time < 18){
+                var daytime = 'Good AfterNoon';
+            }
+            else{
+                var daytime = 'Good Evening';
+            }
+            var DOB = document.getElementById('DOB').value;
+            var dateOpjecet = new Date(DOB);
+            var getdate = dateOpjecet.getDate();
+            var getMonth = dateOpjecet.getMonth();
+            var myBirthday =[];
+            myBirthday.push(getdate, getMonth)
+            var today = new Date();
+            
+            var bday = new Date(today.getFullYear(),myBirthday[1],myBirthday[0]);
+            var myage;
+            if( today.getTime() > bday.getTime()) {
+            bday.setFullYear(bday.getFullYear()+1);
+            myage = (today.getFullYear() +1) - dateOpjecet.getFullYear()
+            }
+            else{
+                myage = (today.getFullYear()) - dateOpjecet.getFullYear()
+            }
+            var diff = bday.getTime()-today.getTime();
+            var days = Math.floor(diff/(1000*60*60*24));
+            document.getElementById('greedingCardMessage').innerHTML = daytime + ' ' + FinalName +  '<br/>' + 'it\'s ' + days +  ' days left your next Birthday Now \n you will be ' + myage + ' year old soon' ;
+            }
+    </script>
+</body>
+</html>
